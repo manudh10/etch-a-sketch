@@ -56,10 +56,7 @@ footer {
     width: 65px;
     margin: 15px;
   }
-  #btn-color{
-    background-color: azure;
-    height: 30px;
-    width: 65px;
+  #colorpicker{
     margin: 15px;
   }
 

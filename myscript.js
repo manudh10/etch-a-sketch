@@ -2,12 +2,7 @@ const slider = document.getElementById("myRange");
 const output = document.getElementById("demo");
 output.innerHTML = slider.value; // Display the default slider value
 
-// Update the current slider value (each time you drag the slider handle)
-slider.oninput = function() {
-  output.innerHTML = this.value;
-} 
 let size = Number.parseInt(slider.value);
-
 const conatiner = document.querySelector('.board');
 let rows = document.getElementsByClassName('gridRow');
 let cells = document.getElementsByClassName('cell');
@@ -16,11 +11,30 @@ let wdth = 640/24;*/
 let ht = 640/size;
 let wdth = 640/size;
 
-function defaultGrid(){
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function() {
+  output.innerHTML = this.value;
+  size = Number.parseInt(slider.value);
+  ht = 640/size;
+  wdth = 640/size;
+  defaultGrid(size);
+} 
+
+const colorInput = document.getElementById("inp-color");
+let colorSel=colorInput.value;
+colorInput.addEventListener('input',()=>{
+    colorSel = colorInput.value;
+})
+
+
+function defaultGrid(sz){
     /*makeRows(24);
-    makeColumns(24);*/
+    makeColumns(24);
     makeRows(size);
-    makeColumns(size);
+    makeColumns(size);*/
+    conatiner.innerHTML="";
+    makeRows(sz);
+    makeColumns(sz);
 }
 
 function makeRows(rowNum){
@@ -49,14 +63,22 @@ function makeColumns(cellNum){
             rows[i].appendChild(newCell).className="cell";
             const test = document.getElementById(newCell.id);
             test.addEventListener('mouseover',(e)=>{
-                e.target.style.backgroundColor = "rgba(92, 89, 89, 0.404)";
+                e.target.style.backgroundColor = colorSel;
             }, false)
         }
     }
 }
 
+defaultGrid(size);
 
 
-defaultGrid();
+
+
+const button = document.getElementById("btn-reset");
+button.addEventListener('click',()=>{
+    for( let i=0; i<cells.length; i++){
+        cells[i].style.backgroundColor = "white";
+    }    
+})
 
 
